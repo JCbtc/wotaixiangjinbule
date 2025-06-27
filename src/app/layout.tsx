@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI内容知识库",
-  description: "为团队精选的AI知识内容",
+  title: "老师，我太想进步了",
+  description: "为AI专业人士精选的知识库",
 };
 
 export default function RootLayout({

@@ -10,9 +10,9 @@ import { Separator } from '@/components/ui/separator';
 
 // Content type configuration
 const contentTypeConfig = {
-  Article: { icon: '📖', label: '文章', bgColor: 'bg-amber-50', textColor: 'text-amber-700', borderColor: 'border-amber-200', variant: 'secondary' as const },
-  Podcast: { icon: '🎙️', label: '播客', bgColor: 'bg-purple-50', textColor: 'text-purple-700', borderColor: 'border-purple-200', variant: 'outline' as const },
-  Video: { icon: '🎬', label: '视频', bgColor: 'bg-rose-50', textColor: 'text-rose-700', borderColor: 'border-rose-200', variant: 'destructive' as const }
+  Article: { icon: '📖', label: '文章', bgColor: 'bg-purple-50', textColor: 'text-purple-700', borderColor: 'border-purple-200', variant: 'secondary' as const },
+  Podcast: { icon: '🎙️', label: '播客', bgColor: 'bg-violet-50', textColor: 'text-violet-700', borderColor: 'border-violet-200', variant: 'outline' as const },
+  Video: { icon: '🎬', label: '视频', bgColor: 'bg-indigo-50', textColor: 'text-indigo-700', borderColor: 'border-indigo-200', variant: 'destructive' as const }
 };
 
 // Difficulty level configuration

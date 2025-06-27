@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Search, BookOpen, Headphones, Play, ChevronDown, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import { Search, BookOpen, Headphones, Play, ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import { mockContent, ContentItem } from '@/data/content';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,12 +12,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
+import { TypingEffect } from '@/components/ui/typing-effect';
 
 // Content type icons and styling
 const contentTypeConfig = {
-  Article: { icon: <BookOpen className="h-4 w-4" />, label: 'Articles', bgColor: 'bg-blue-50', textColor: 'text-blue-700', borderColor: 'border-blue-200' },
-  Podcast: { icon: <Headphones className="h-4 w-4" />, label: 'Podcasts', bgColor: 'bg-purple-50', textColor: 'text-purple-700', borderColor: 'border-purple-200' },
-  Video: { icon: <Play className="h-4 w-4" />, label: 'Videos', bgColor: 'bg-red-50', textColor: 'text-red-700', borderColor: 'border-red-200' }
+  Article: { icon: <BookOpen className="h-4 w-4" />, label: '文章', bgColor: 'bg-purple-50', textColor: 'text-purple-700', borderColor: 'border-purple-200' },
+  Podcast: { icon: <Headphones className="h-4 w-4" />, label: '播客', bgColor: 'bg-violet-50', textColor: 'text-violet-700', borderColor: 'border-violet-200' },
+  Video: { icon: <Play className="h-4 w-4" />, label: '视频', bgColor: 'bg-indigo-50', textColor: 'text-indigo-700', borderColor: 'border-indigo-200' }
 };
 
 // Difficulty level configuration
@@ -49,11 +52,11 @@ function ContentCard({ item }: { item: ContentItem }) {
           
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between mb-2">
-              <h3 className="text-lg font-semibold line-clamp-2 hover:text-blue-700 transition-colors">
+              <h3 className="text-lg font-semibold line-clamp-2 hover:text-purple-700 transition-colors">
                 {item.title}
               </h3>
               <div className="flex items-center gap-2 ml-4">
-                <Badge className={`text-xs px-2 py-1 ${item.contentType === 'Video' ? 'bg-red-100 text-red-800' : item.contentType === 'Podcast' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'}`}>
+                <Badge className={`text-xs px-2 py-1 ${item.contentType === 'Video' ? 'bg-indigo-100 text-indigo-800' : item.contentType === 'Podcast' ? 'bg-violet-100 text-violet-800' : 'bg-purple-100 text-purple-800'}`}>
                   {config.label.slice(0, -1)}
                 </Badge>
                 <span className="text-sm text-gray-500">{formattedDate}</span>
@@ -132,16 +135,16 @@ function Sidebar({ activeFilter, onFilterChange, content }: {
   const stats = getCategoryStats();
 
   const categories = [
-    { key: 'All' as const, label: 'All Content', icon: '📚' },
-    { key: 'Article' as const, label: 'Articles', icon: '📖' },
-    { key: 'Podcast' as const, label: 'Podcasts', icon: '🎙️' },
-    { key: 'Video' as const, label: 'Videos', icon: '🎬' }
+    { key: 'All' as const, label: '全部内容', icon: '📚' },
+    { key: 'Article' as const, label: '文章', icon: '📖' },
+    { key: 'Podcast' as const, label: '播客', icon: '🎙️' },
+    { key: 'Video' as const, label: '视频', icon: '🎬' }
   ];
 
   const difficultyLevels = [
-    { key: '初级' as const, label: 'Beginner', icon: '🌱' },
-    { key: '进阶' as const, label: 'Intermediate', icon: '🚀' },
-    { key: '高级' as const, label: 'Advanced', icon: '🎓' }
+    { key: '初级' as const, label: '初级', icon: '🌱' },
+    { key: '进阶' as const, label: '进阶', icon: '🚀' },
+    { key: '高级' as const, label: '高级', icon: '🎓' }
   ];
 
   const handleCategoryClick = (categoryKey: string) => {
@@ -175,7 +178,7 @@ function Sidebar({ activeFilter, onFilterChange, content }: {
   return (
     <div className="w-64 bg-white border-r border-gray-200 min-h-screen">
       <div className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Browse Content</h3>
+        <h3 className="text-lg font-semibold mb-4">浏览内容</h3>
         <Separator className="mb-4" />
         
         <nav className="space-y-1">
@@ -251,13 +254,27 @@ function Sidebar({ activeFilter, onFilterChange, content }: {
   );
 }
 
-export default function BrowsePage() {
+function BrowsePageContent() {
+  const searchParams = useSearchParams();
   const [activeFilter, setActiveFilter] = useState<FilterState>({
     contentType: 'All',
     difficulty: 'All'
   });
   const [content] = useState<ContentItem[]>(mockContent);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Initialize filter from URL parameters
+  useEffect(() => {
+    const category = searchParams.get('category');
+    const difficulty = searchParams.get('difficulty');
+    
+    if (category && ['Article', 'Podcast', 'Video'].includes(category)) {
+      setActiveFilter({
+        contentType: category as 'Article' | 'Podcast' | 'Video',
+        difficulty: difficulty && ['初级', '进阶', '高级'].includes(difficulty) ? difficulty as '初级' | '进阶' | '高级' : 'All'
+      });
+    }
+  }, [searchParams]);
 
   // Filter content based on active filter and search query
   const filteredContent = useMemo(() => {
@@ -283,10 +300,10 @@ export default function BrowsePage() {
 
   // Get filter display text
   const getFilterDisplayText = () => {
-    if (searchQuery) return 'Search Results';
+    if (searchQuery) return '搜索结果';
     
-    let typeText = activeFilter.contentType === 'All' ? 'All Content' : contentTypeConfig[activeFilter.contentType].label;
-    let difficultyText = activeFilter.difficulty === 'All' ? '' : ` · ${activeFilter.difficulty === '初级' ? 'Beginner' : activeFilter.difficulty === '进阶' ? 'Intermediate' : 'Advanced'}`;
+    let typeText = activeFilter.contentType === 'All' ? '全部内容' : contentTypeConfig[activeFilter.contentType].label;
+    let difficultyText = activeFilter.difficulty === 'All' ? '' : ` · ${activeFilter.difficulty}`;
     
     return typeText + difficultyText;
   };
@@ -297,25 +314,57 @@ export default function BrowsePage() {
       <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <BookOpen className="h-5 w-5 text-white" />
+            <div className="flex items-center gap-8">
+              <Link href="/" className="flex items-center gap-4">
+                <div className="w-12 h-12 flex items-center justify-center">
+                  <Image 
+                    src="/Icon.svg" 
+                    alt="Logo" 
+                    width={48} 
+                    height={48}
+                    className="w-12 h-12"
+                  />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">ReadWorthy AI</h1>
-                  <p className="text-xs text-gray-500">Curated AI Knowledge Library</p>
+                  <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-1">
+                    <TypingEffect 
+                      words={["老师", "哥哥", "姐姐"]} 
+                      className="text-purple-700"
+                      typingSpeed={200}
+                      deletingSpeed={150}
+                      pauseDuration={2500}
+                    />
+                    <span>，我太想进步了</span>
+                  </h1>
+                  <p className="text-sm text-gray-500">为AI专业人士精选的知识库</p>
                 </div>
               </Link>
+              
+              {/* Navigation */}
+              <nav className="hidden md:flex items-center gap-6">
+                <Link href="/">
+                  <Button variant="ghost" size="sm">精选</Button>
+                </Link>
+                <Button variant="ghost" size="sm" className="text-purple-600 bg-purple-50">分类</Button>
+              </nav>
             </div>
 
             <div className="flex items-center gap-4">
-              <nav className="hidden md:flex items-center gap-6">
-                <Link href="/">
-                  <Button variant="ghost" size="sm">Home</Button>
-                </Link>
-                <Button variant="ghost" size="sm" className="text-blue-600 bg-blue-50">Browse</Button>
-              </nav>
+              {/* Search */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="搜索内容..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 w-64"
+                />
+              </div>
+              
+              <Button className="font-medium bg-purple-600 hover:bg-purple-700">
+                <Plus className="h-4 w-4 mr-2" />
+                提交内容
+              </Button>
             </div>
           </div>
         </div>
@@ -338,7 +387,7 @@ export default function BrowsePage() {
                 <div className="relative flex-1 max-w-md">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
-                    placeholder="Search content, tags, or authors..."
+                    placeholder="搜索内容、标签或作者..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"
@@ -350,7 +399,7 @@ export default function BrowsePage() {
                     size="sm"
                     onClick={() => setSearchQuery('')}
                   >
-                    Clear
+                    清除
                   </Button>
                 )}
               </div>
@@ -360,8 +409,8 @@ export default function BrowsePage() {
                   {getFilterDisplayText()}
                 </h2>
                 <p className="text-gray-500 text-sm">
-                  {filteredContent.length} items found
-                  {searchQuery && ` for "${searchQuery}"`}
+                  找到 {filteredContent.length} 项内容
+                  {searchQuery && ` 关于 "${searchQuery}"`}
                 </p>
               </div>
             </div>
@@ -381,22 +430,22 @@ export default function BrowsePage() {
                     {searchQuery ? '🔍' : '📚'}
                   </div>
                   <CardTitle className="mb-2">
-                    {searchQuery ? 'No results found' : 'No content available'}
+                    {searchQuery ? '未找到结果' : '无可用内容'}
                   </CardTitle>
                   <CardDescription className="mb-4">
                     {searchQuery 
-                      ? `No content found for "${searchQuery}". Try different keywords or clear the search.`
-                      : 'Try selecting a different content type or difficulty level.'
+                      ? `未找到关于 "${searchQuery}" 的内容。请尝试不同的关键词或清除搜索。`
+                      : '请尝试选择不同的内容类型或难度级别。'
                     }
                   </CardDescription>
                   <div className="flex gap-2 justify-center">
                     {searchQuery && (
                       <Button variant="outline" onClick={() => setSearchQuery('')}>
-                        Clear Search
+                        清除搜索
                       </Button>
                     )}
                     <Link href="/">
-                      <Button>Back to Home</Button>
+                      <Button>返回首页</Button>
                     </Link>
                   </div>
                 </CardContent>
@@ -406,5 +455,13 @@ export default function BrowsePage() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function BrowsePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BrowsePageContent />
+    </Suspense>
   );
 } 

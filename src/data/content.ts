@@ -11,93 +11,141 @@ export interface ContentItem {
 }
 
 export const mockContent: ContentItem[] = [
+  // 文章/博客 - 基础
   {
     id: '1',
-    title: '企业级大语言模型的未来发展',
-    submitter: '陈莎拉',
+    title: 'What Is ChatGPT Doing and Why Does It Work?',
+    submitter: 'Stephen Wolfram',
     contentType: 'Article',
-    difficultyLevel: '进阶',
-    url: 'https://example.com/future-llms',
-    summary: '深入分析大语言模型如何从客户服务自动化到代码生成等方面改变企业工作流程。文章探讨了实施策略、成本效益分析以及组织采用LLM技术时面临的潜在挑战。',
+    difficultyLevel: '初级',
+    url: 'https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/',
+    summary: '著名科学家Stephen Wolfram用非常直观和易于理解的方式，从第一性原理出发解释了像ChatGPT这样的大语言模型其核心工作原理。这篇文章几乎没有复杂的数学公式，是理解LLM内部机制的最佳入门读物。',
     submittedAt: '2024-01-15T10:30:00Z',
-    tags: ['企业AI', '大语言模型', '商业策略']
+    tags: ['ChatGPT', '大语言模型', '第一性原理', '入门', 'Stephen Wolfram']
   },
+  
+  // 文章/博客 - 进阶
   {
     id: '2',
-    title: '使用Claude API构建AI驱动的应用程序',
-    submitter: '罗德里格斯',
-    contentType: 'Video',
-    difficultyLevel: '初级',
-    url: 'https://example.com/claude-api-tutorial',
-    summary: '一个全面的45分钟教程，演示如何将Claude API集成到现代Web应用程序中。涵盖身份验证、提示工程最佳实践、流式响应和错误处理，并提供实用的代码示例。',
+    title: 'The Illustrated Transformer',
+    submitter: 'Jay Alammar',
+    contentType: 'Article',
+    difficultyLevel: '进阶',
+    url: 'https://jalammar.github.io/illustrated-transformer/',
+    summary: 'Jay Alammar用大量精美的图示，一步步拆解了Transformer模型的内部结构和"自注意力"机制。这篇文章是理解所有现代大语言模型（如GPT、BERT）基础架构的最经典、最直观的入门材料。',
     submittedAt: '2024-01-14T14:20:00Z',
-    tags: ['Claude API', '开发教程', '入门指南']
+    tags: ['Transformer', '自注意力', 'GPT', 'BERT', '架构解析', '图解']
   },
+  
   {
     id: '3',
-    title: 'AI伦理辩论：与行业领袖的对话',
-    submitter: '玛雅·帕特尔博士',
-    contentType: 'Podcast',
-    difficultyLevel: '高级',
-    url: 'https://example.com/ai-ethics-podcast',
-    summary: '邀请知名AI研究人员和伦理学家就人工智能的负责任发展进行深度讨论。主题包括偏见缓解、透明度要求以及AI系统对社会的影响。',
+    title: 'Attention Is All You Need',
+    submitter: 'Ashish Vaswani, et al.',
+    contentType: 'Article',
+    difficultyLevel: '进阶',
+    url: 'https://arxiv.org/abs/1706.03762',
+    summary: '这篇论文是Transformer模型的开山之作，是整个大语言模型时代的基石。虽然是学术论文，但对于进阶者来说，阅读并理解其核心思想是必不可少的一步。',
     submittedAt: '2024-01-13T09:15:00Z',
-    tags: ['AI伦理', '行业洞察', '负责任AI']
+    tags: ['Transformer', 'Attention', '学术论文', 'Google Research', '开创性研究']
   },
+  
+  // 播客 - AI与行业洞察
   {
     id: '4',
-    title: '提示工程大师班：高级技术详解',
-    submitter: '金乔丹',
-    contentType: 'Article',
-    difficultyLevel: '高级',
-    url: 'https://example.com/prompt-engineering-guide',
-    summary: '掌握提示工程艺术，学习获得AI模型更好结果的高级技术。涵盖思维链提示、少样本学习、基于角色的提示以及系统化提示优化策略。',
-    submittedAt: '2024-01-12T16:45:00Z',
-    tags: ['提示工程', 'AI优化', '最佳实践']
-  },
-  {
-    id: '5',
-    title: '医疗保健中的AI：革命性突破',
-    submitter: '艾米丽·沃森博士',
-    contentType: 'Video',
-    difficultyLevel: '进阶',
-    url: 'https://example.com/ai-healthcare-breakthroughs',
-    summary: '探索AI驱动的医疗保健解决方案的最新突破，从诊断成像改进到药物发现加速。包括医疗专业人士访谈和显示可测量患者结果的真实案例研究。',
-    submittedAt: '2024-01-11T11:30:00Z',
-    tags: ['医疗AI', '医学创新', '案例研究']
-  },
-  {
-    id: '6',
-    title: '2024年AI研究现状报告',
-    submitter: '研究团队',
+    title: '屠龙之术 - Vol.64 40页PPT记录2025年中AI行业共识',
+    submitter: '庄明浩 ROI',
     contentType: 'Podcast',
     difficultyLevel: '进阶',
-    url: 'https://example.com/ai-research-2024',
-    summary: '年度回顾播客，涵盖2024年最重要的AI研究发展。讨论突破性论文、新兴趋势以及对人工智能研究和发展未来方向的预测。',
-    submittedAt: '2024-01-10T08:00:00Z',
-    tags: ['AI研究', '年度回顾', '发展趋势']
+    url: 'https://www.xiaoyuzhoufm.com/episode/684fb4d62a38b4d979df0846',
+    summary: '这是主播庄明浩 ROI 的一期单口。他分享了自己花大量时间制作的一份40页PPT，核心是梳理在2025年6月这个时间点，他对当前AI行业的"共识"是怎样的。内容会依次聊到：技术（推理、Agent、开源）、产品（交互、运营）、资本（加速、并购）等等和他自己的一些思考。',
+    submittedAt: '2024-01-15T10:30:00Z',
+    tags: ['AI行业', '技术趋势', 'Agent', '开源', '投资', '行业共识']
   },
+  
+  {
+    id: '5',
+    title: '十字路口Crossing - 首个投资交易 Agent Bobby 上线，第一时间和 Vakee 聊 Bobby 的诞生过程以及生活中的投资机会',
+    submitter: '十字路口Crossing',
+    contentType: 'Podcast',
+    difficultyLevel: '进阶',
+    url: 'https://www.xiaoyuzhoufm.com/episode/685805084abe6e29cb68ce17',
+    summary: '新加坡金融科技公司 RockFlow 刚刚发布了全球首个金融交易 AI Agent——Bobby。我们第一时间邀请到了 RockFlow 的创始人 Vakee Lai，来和我们一起聊聊 Bobby 的诞生过程，以及 Vakee 对于普通人如何在生活中发现投资机会的思考。',
+    submittedAt: '2024-01-14T14:20:00Z',
+    tags: ['AI Agent', '金融科技', '投资', 'RockFlow', 'Bobby', '交易']
+  },
+  
+  {
+    id: '6',
+    title: '42章经 - 世界加速分化下，我们的机会在哪里？ | 对谈绿洲资本合伙人张津剑',
+    submitter: '42章经',
+    contentType: 'Podcast',
+    difficultyLevel: '进阶',
+    url: 'https://www.xiaoyuzhoufm.com/episode/683cdd6c38dcc57c641216cb',
+    summary: '本期我们请到了绿洲资本的合伙人张津剑，他会分享关于"投资中的频率与频谱"的思考，以及关于 AI 的一场"感知革命"的观点，最终回归到每个人该如何重建"注意力"这个话题。',
+    submittedAt: '2024-01-13T09:15:00Z',
+    tags: ['AI投资', '感知革命', '注意力', '绿洲资本', '投资思考', '张津剑']
+  },
+  
+  // 播客 - 创业与个人成长
   {
     id: '7',
-    title: '向量数据库：现代AI应用的骨干',
-    submitter: '技术解决方案公司',
-    contentType: 'Article',
-    difficultyLevel: '高级',
-    url: 'https://example.com/vector-databases-guide',
-    summary: '理解向量数据库及其在AI应用中的关键作用。涵盖嵌入存储、相似性搜索、性能优化，以及Pinecone和Weaviate等流行向量数据库解决方案的实用实施指南。',
-    submittedAt: '2024-01-09T13:22:00Z',
-    tags: ['向量数据库', 'AI基础设施', '技术指南']
+    title: '三五环 - No.196 对谈玉伯：告别大厂，我在 AI 荒野里「养小孩」',
+    submitter: '三五环',
+    contentType: 'Podcast',
+    difficultyLevel: '进阶',
+    url: 'https://www.xiaoyuzhoufm.com/episode/68598b1b2a38b4d979294357',
+    summary: '本期节目的嘉宾是玉伯。他曾是蚂蚁集团研究员，后带领团队创办了语雀，不久前刚卸任飞书产品副总裁，目前在 AI 领域创业。在这期节目里，玉伯坦诚地分享了他创业半年来的感受，为什么他会把做从 0 到 1 的 AI 产品比作"养小孩"？他如何看待 AI 产品定义和找 PMF 的挑战？',
+    submittedAt: '2024-01-12T16:45:00Z',
+    tags: ['AI创业', '玉伯', '语雀', '飞书', '产品开发', 'PMF']
   },
+  
   {
     id: '8',
-    title: '无代码AI：机器学习的民主化',
-    submitter: '张丽莎',
+    title: 'The Wanderers 流浪者 - 44.AI时代，牛马能躺平吗？(首次露脸)',
+    submitter: 'The Wanderers 流浪者',
+    contentType: 'Podcast',
+    difficultyLevel: '初级',
+    url: 'https://www.xiaoyuzhoufm.com/episode/684702b56dbe9284e79f22d5',
+    summary: '本期为首次露脸的视频播客。本期节目我们和新朋友浩哥、星辰一起聊了聊最近很火的 AI 话题，希望能帮助大家缓解一些技术焦虑。',
+    submittedAt: '2024-01-11T11:30:00Z',
+    tags: ['AI时代', '技术焦虑', '个人成长', '视频播客', '躺平思考']
+  },
+  
+  {
+    id: '9',
+    title: '晚点聊 - 120: 科创板后再访Insta360刘靖康：这何尝不是一种极限运动！',
+    submitter: '晚点聊',
+    contentType: 'Podcast',
+    difficultyLevel: '进阶',
+    url: 'https://www.xiaoyuzhoufm.com/episode/684b3febcdecf72d4cb70f82',
+    summary: '影石Insta360成功登陆科创板一年后，我们再次和它的创始人刘靖康进行了一次深度交流。本期节目，你将听到，影石的战略如何从"猎人策略"演变为"包围式差异化"进攻？刘靖康本人在产品、组织和个人成长上有哪些最新思考？',
+    submittedAt: '2024-01-10T08:00:00Z',
+    tags: ['Insta360', '刘靖康', '科创板', '产品策略', '创业思考', '极限运动']
+  },
+  
+  // 视频 - 基础
+  {
+    id: '10',
+    title: 'Deep Dive into LLMs like ChatGPT',
+    submitter: 'AI Education Channel',
     contentType: 'Video',
     difficultyLevel: '初级',
-    url: 'https://example.com/no-code-ai-platforms',
-    summary: '发现无代码AI平台如何让非技术用户也能使用机器学习。回顾流行工具，演示工作流创建，并展示无需传统编程即可构建的真实商业应用。',
+    url: 'https://www.youtube.com/watch?v=7xTGNNLPyMI&t=1s',
+    summary: '本视频深入浅出地讲解了大型语言模型（如ChatGPT）的核心工作原理，旨在帮助观众理解其背后的技术基础和架构。适合希望对LLM技术有宏观和概念性认识的初学者。',
+    submittedAt: '2024-01-16T13:22:00Z',
+    tags: ['LLM深度解析', 'ChatGPT原理', '技术基础', '架构解析', '初学者友好']
+  },
+  
+  {
+    id: '11',
+    title: 'How I use LLM',
+    submitter: 'Productivity Tech',
+    contentType: 'Video',
+    difficultyLevel: '初级',
+    url: 'https://www.youtube.com/watch?v=EWvNQjAaOHw',
+    summary: '本视频侧重于实际应用，分享了使用大型语言模型的实用技巧和工作流程。内容主要展示如何将LLM作为强大的生产力工具，以提升日常工作和学习的效率。',
     submittedAt: '2024-01-08T15:10:00Z',
-    tags: ['无代码AI', '易用性', '商业工具']
+    tags: ['LLM应用', '生产力工具', '工作流程', '实用技巧', '效率提升']
   }
 ];
 
@@ -105,37 +153,77 @@ export const mockComments = {
   '1': [
     {
       id: 'c1',
-      author: '迈克尔·布朗',
-      content: '关于企业实施的见解很棒！我们公司目前正在试点类似的解决方案。',
+      author: '李明',
+      content: 'Stephen Wolfram的这篇文章真的写得太好了！作为一个非技术背景的人，我终于理解了ChatGPT的工作原理。特别是关于神经网络训练的部分，解释得非常清晰。',
       timestamp: '2024-01-15T12:00:00Z'
     },
     {
       id: 'c2',
-      author: '刘詹妮弗',
-      content: '成本效益分析部分特别有用。希望能看到更多真实世界的案例研究。',
+      author: '王小芳',
+      content: '这篇文章的视觉化解释太棒了。之前看了很多技术文档都云里雾里，这篇让我对Transformer有了直观的理解。强烈推荐给所有想了解AI的朋友！',
       timestamp: '2024-01-15T14:30:00Z'
     }
   ],
   '2': [
     {
       id: 'c3',
-      author: '大卫·威尔逊',
-      content: '出色的教程！流式响应示例为我节省了几个小时的调试时间。',
+      author: '张工程师',
+      content: 'Jay Alammar的图解系列一直都是经典！这篇Transformer的解析帮我在面试中答出了关键问题。图示和动画让复杂的attention机制变得容易理解。',
       timestamp: '2024-01-14T16:45:00Z'
     },
     {
       id: 'c4',
-      author: '安娜·施密特',
-      content: '解释清晰，代码示例结构良好。对于Claude API新手开发者来说非常完美。',
+      author: '陈研究生',
+      content: '正在写毕业论文，这篇文章提供了很好的Transformer架构理解。特别是multi-head attention的部分，比教科书讲得还清楚。',
       timestamp: '2024-01-14T18:20:00Z'
     }
   ],
   '3': [
     {
       id: 'c5',
-      author: '罗伯特·泰勒教授',
-      content: '关于AI伦理的重要讨论。他们讨论的透明度框架应该成为行业标准。',
+      author: '林教授',
+      content: '这篇开创性的论文改变了整个NLP领域。虽然数学公式较多，但核心思想revolutionary。建议结合Jay Alammar的图解文章一起阅读，效果更佳。',
       timestamp: '2024-01-13T11:30:00Z'
+    }
+  ],
+  '4': [
+    {
+      id: 'c6',
+      author: 'AI从业者',
+      content: '庄明浩这期40页PPT的总结真的很全面！对2025年AI行业的梳理很到位，从技术到产品到资本都有涉及。特别是对Agent技术发展的分析很有见地。',
+      timestamp: '2024-01-15T20:15:00Z'
+    }
+  ],
+  '5': [
+    {
+      id: 'c7',
+      author: '金融科技爱好者',
+      content: 'Bobby这个AI Agent真的很有意思！作为全球首个金融交易Agent，确实开创了新的领域。Vakee分享的投资机会思考也很实用。',
+      timestamp: '2024-01-14T13:45:00Z'
+    }
+  ],
+  '7': [
+    {
+      id: 'c8',
+      author: '创业者',
+      content: '玉伯的分享很真诚！从蚂蚁到语雀再到飞书，现在又投身AI创业，他的经历和思考对我们这些想在AI领域创业的人很有启发。',
+      timestamp: '2024-01-12T16:30:00Z'
+    }
+  ],
+  '10': [
+    {
+      id: 'c9',
+      author: '技术新手',
+      content: '这个视频太棒了！终于明白了LLM是怎么生成文本的。讲解很清晰，没有太多专业术语，适合我这种刚开始学习AI的人。',
+      timestamp: '2024-01-09T16:30:00Z'
+    }
+  ],
+  '11': [
+    {
+      id: 'c10',
+      author: '效率达人',
+      content: '视频中的LLM使用技巧很实用！已经开始在我的日常工作中应用，确实提高了不少效率。特别是那个prompt优化的部分，很有启发。',
+      timestamp: '2024-01-08T19:20:00Z'
     }
   ]
 }; 
